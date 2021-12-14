@@ -46,22 +46,37 @@ const int is_udp2raw_mp=1;
 
 
 #else
+#if !defined(UDP2RAW_BSD)
 #define UDP2RAW_LINUX
 const int is_udp2raw_mp=0;
-//#include <linux/if_ether.h>
-#include <net/bpf.h>
-//#include <linux/if_packet.h>
-//#include <sys/epoll.h>
-//#include <sys/wait.h> //signal
-#include <sys/kqueue.h>
+#include <linux/if_ether.h>
+#include <linux/filter.h>
+#include <linux/if_packet.h>
+#include <sys/epoll.h>
+#include <sys/wait.h> //signal
+//#include <sys/kqueue.h>
 #include <netinet/if_ether.h>
 #include <net/if.h>
 #include <sys/timerfd.h>
-
+#else
+#undef UDP2RAW_LINUX
+const int is_udp2raw_mp=0;
+//#include <linux/if_ether.h>
+//#include <linux/filter.h>
+//#include <linux/if_packet.h>
+//#include <sys/epoll.h>
+//#include <sys/wait.h> //signal
+//#include <sys/kqueue.h>
+#include <sys/types.h>
+#include <sys/event.h>
+#include <sys/time.h>
+#include <netinet/if_ether.h>
+#include <net/if.h>
+#endif
 #endif
 
 #if !defined(NO_LIBEV_EMBED)
-#include <my_ev.h>
+#include "my_ev.h"
 #else
 #include "ev.h"
 #endif
