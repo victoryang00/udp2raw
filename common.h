@@ -49,10 +49,11 @@ const int is_udp2raw_mp=1;
 #define UDP2RAW_LINUX
 const int is_udp2raw_mp=0;
 //#include <linux/if_ether.h>
-#include <linux/filter.h>
-#include <linux/if_packet.h>
-#include <sys/epoll.h>
+#include <net/bpf.h>
+//#include <linux/if_packet.h>
+//#include <sys/epoll.h>
 //#include <sys/wait.h> //signal
+#include <sys/kqueue.h>
 #include <netinet/if_ether.h>
 #include <net/if.h>
 #include <sys/timerfd.h>
