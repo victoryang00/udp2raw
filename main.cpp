@@ -7,6 +7,7 @@
 #include "encrypt.h"
 #include "fd_manager.h"
 
+#define UDP2RAW_BSD
 void sigpipe_cb(struct ev_loop *l, ev_signal *w, int revents)
 {
 	mylog(log_info, "got sigpipe, ignored");
